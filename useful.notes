@@ -1,0 +1,71 @@
+-- update lxde
+lxappearance
+lxhotkey
+lxinput
+
+-- force dpms screen off
+xset dpms force off
+
+-- change keyboard
+alt+shift
+
+-- webcam
+v4l2-ctl -l
+sudo v4l2-ctl -c white_balance_temperature_auto=0
+sudo v4l2-ctl -c white_balance_temperature=3000
+
+-- no chrome smooth scrolling
+chrome://flags/
+Smooth Scrolling: Disabled
+
+-- using evdev and not libinput
+sudo apt-get update
+sudo apt-get install xserver-xorg-input-evdev
+sudo apt-get remove xserver-xorg-input-libinput
+
+-- keyboard and languages
+See: https://wiki.debian.org/Keyboard
+# dpkg-reconfigure keyboard-configuration
+# service keyboard-setup restart
+
+-- swap capslock and left control
+XKBOPTIONS="lv3:ralt_switch,ctrl:swapcaps"
+
+-- keyboards + bindings
+xev
+sudo showkeys
+~/.Xmodmap : update key bindings
+
+-- bindings in .Xmodmap for HP Elitebook
+keycode 113 = XF86AudioMute NoSymbol XF86AudioMute                                                                                                                                                               
+keycode 114 = XF86AudioLowerVolume NoSymbol XF86AudioLowerVolume                                                                                                                                                 
+keycode 115 = XF86AudioRaiseVolume NoSymbol XF86AudioRaiseVolume  
+keycode 465 = XF86AudioMicMute NoSymbol XF86AudioMicMute 
+
+-- actions in lxhotkey
+Audio mute: pactl set-sink-mute @DEFAULT_SINK@ toggle
+Audio up: pactl set-sink-mute @DEFAULT_SINK@ toggle
+Audio down: pactl set-sink-mute @DEFAULT_SINK@ toggle
+Microphone mute: pactl list sources | grep -qi 'Mute: yes' && pactl set-source-mute 1 false || pactl set-source-mute 1 true
+
+-- xorg.conf update
+/usr/share/X11/xorg.conf.d
+
+-- no titlebar
+killall tint2
+
+-- audio
+alsamixer
+
+-- bluetooth
+Start the bluetoothctl interactive command. Enter "help" to get a list of available commands.
+
+Turn the power to the controller on by entering "power on". It is off by default.
+Enter "devices" to get the MAC Address of the device with which to pair.
+Enter device discovery mode with "scan on" command if device is not yet on the list.
+Turn the agent on with "agent on".
+Enter "pair MAC Address" to do the pairing (tab completion works).
+
+If using a device without a PIN, one may need to manually trust the device before it can reconnect successfully. Enter "trust MAC Address" to do so.
+
+Finally, use "connect MAC address" to establish a connection.
