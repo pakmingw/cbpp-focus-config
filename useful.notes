@@ -6,8 +6,18 @@ lxinput
 -- force dpms screen off
 xset dpms force off
 
+-- suspend
+systemctl suspend
+
 -- change keyboard
 alt+shift
+
+-- wifi
+sudo apt-get install wicd
+wicd-client
+
+-- wifi w. cbpp // use task bar applet
+tint2
 
 -- webcam
 v4l2-ctl -l
